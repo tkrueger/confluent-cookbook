@@ -7,9 +7,19 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+    driver_config:
+      customize:
+            cpus: 2
+            memory: 512
   - name: centos-6.5
 
 suites:
   - name: default
     run_list:
+      - recipe[apt]
+      - recipe[java]
+      - recipe[confluent-cookbook::default]
     attributes:
+      java:
+        install_flavor: openjdk
+        jdk_version: 7
